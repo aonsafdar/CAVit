@@ -6,9 +6,9 @@ This repository contains the official PyTorch implementation of **CAViT**
 ## 📦 Setup
 
 ```bash
-# Create environment (optional)
-conda create -n cavit python=3.10
-conda activate cavit
+# Create virtual environment
+python -m venv cavit-env
+source cavit-env/bin/activate  # or .\cavit-env\Scripts\activate on Windows
 
 # Install dependencies
 pip install -r requirements.txt
