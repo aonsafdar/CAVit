@@ -12,3 +12,10 @@ source cavit-env/bin/activate  # or .\cavit-env\Scripts\activate on Windows
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Run Script
+python main.py --dataset pneumoniamnist \
+               --epochs 100 \
+               --batch_size 128 \
+               --image_size 224 \
+               --patch_size 16 
