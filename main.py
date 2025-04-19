@@ -3,11 +3,7 @@ import torch
 import argparse
 import datetime
 from solverwandbNSSGD import Solver
-#from solverCIFAR10 import Solver
-#from solverPETS import Solver
-#from solverImagenet100 import Solver
-#from solverCatsVsDogs import Solver
-#from solverMalaria import Solver
+
 
 
 def main(args):
@@ -20,11 +16,6 @@ def main(args):
     solver.train()               # Training function
     solver.plot_graphs()         # Training plots
     solver.test(train=False)      # Testing function to see final training and val accuracies
-    #solver.validate()            # Eval performance on unseen data
-    ###solver.validate(log_images=True, batch_idx=0) # on unseen data
-    #solver.plot_heatmaps()
-    
-    
 
 
 # Print arguments
@@ -62,7 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--output_path', type=str, default='./outputs', help='path to store training graphs and tsne plots')
 
     # Data arguments
-    parser.add_argument('--dataset', type=str, default='breastmnist', choices=['tissuemnist', 'pathmnist', 'chestmnist', 'dermamnist', 'octmnist', 'pneumoniamnist', 'retinamnist', 'breastmnist', 'bloodmnist', 'tissuemnist', 'organamnist', 'organcmnist', 'organsmnist'], help='dataset to use')
+    parser.add_argument('--dataset', type=str, default='pneumoniamnist', choices=['tissuemnist', 'pathmnist', 'chestmnist', 'dermamnist', 'octmnist', 'pneumoniamnist', 'retinamnist', 'breastmnist', 'bloodmnist', 'tissuemnist', 'organamnist', 'organcmnist', 'organsmnist'], help='dataset to use')
     parser.add_argument("--image_size", type=int, default=224, help='image size')
     parser.add_argument("--patch_size", type=int, default=16, help='patch Size')
     parser.add_argument("--n_channels", type=int, default=3, help='number of channels')
@@ -71,10 +62,10 @@ if __name__ == '__main__':
     # ViT Arguments
     parser.add_argument("--embed_dim", type=int, default=196, help='dimensionality of the latent space')
     parser.add_argument("--n_attention_heads", type=int, default=4, help='number of heads to use in Multi-head attention')
-    parser.add_argument("--forward_mul", type=int, default=2, help='forward multiplier')
-    parser.add_argument("--n_layers", type=int, default=6, help='number of encoder layers')
-    parser.add_argument("--dropout", type=float, default=0.1, help='dropout value')
-    parser.add_argument('--model_path', type=str, default='/mnt/storage/aonsafdar/Latest/DINO/modelweights', help='path to store trained model')
+    parser.add_argument("--forward_mul", type=int, default=4, help='forward multiplier')
+    parser.add_argument("--n_layers", type=int, default=12, help='number of encoder layers')
+    parser.add_argument("--dropout", type=float, default=0.0, help='dropout value')
+    parser.add_argument('--model_path', type=str, default='/model', help='path to store trained model')
     parser.add_argument("--load_model", type=bool, default=False, help="load saved model")
 
     start_time = datetime.datetime.now()
