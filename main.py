@@ -2,7 +2,7 @@ import os
 import torch
 import argparse
 import datetime
-from solverwandbNSSGD import Solver
+from solver import Solver
 
 
 
