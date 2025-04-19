@@ -5,11 +5,11 @@ import torch.nn as nn
 from torch import optim
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score
-from data_loader_medmnist_insight import get_loader
 from medmnist import INFO, Evaluator
 import wandb
 import torch.nn.functional as F
 
+from data_loader import get_loader
 from attentionmixer import VisionTransformer # original vit from TIMM components
 
 
