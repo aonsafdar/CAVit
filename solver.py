@@ -6,22 +6,12 @@ from torch import optim
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score
 from data_loader_medmnist_insight import get_loader
-#from data_loader_cifar10 import get_cifar10_loaders
 from medmnist import INFO, Evaluator
 import wandb
 import torch.nn.functional as F
 
-#from timm import create_model # for creating timm models
-from MedViT import MedViT_small as tiny # For MedVit models
-# from nsViT.models.customizedpatchsizemodel import create_custom_vit_tiny # non-square model creation
-#from nsViT.models.dimensionswapmodel import create_custom_vit_with_swap # model with swapped emb_dim and patches
-#@#from nsViT.models.doubletokens import create_custom_vit # model with both original and swapped dimension, position added before swap and cls token also added after posn emb
-
 from attentionmixer import VisionTransformer # original vit from TIMM components
-#from swap_dim_mod_heads import VisionTransformer # This model has 1 head in first block and 3 heads(as original vit) in other blocks. the dimessions are swapped so first block is made single to conform to assertion dim//head == 0
-#from embed_output_model import VisionTransformer # modelnamein wandb: trial-emb-vis, this model is original model modified for XAI only.I extract emb-dims from each block to visualize ins ome way
-#from attn_output_model import VisionTransformer # modelnamein wandb: emd-attn-model, for xAI, from original model i extract  attn score  from each layer/block
-#import timm  # for creating timm models
+
 
 wandb.require("core")
 device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
@@ -52,37 +42,7 @@ class Solver(object):
         print(self.class_labels)
         print("##################################")
 
-        # Get Data loaders from CIFAR10
-        # self.trainloader, self.testloader, self.n_cl = get_cifar10_loaders(root='./data')
-        # self.task == "multi-class"
-        # print(self.class_labels)
-
-############################################## CREATE MODEL
-# Create vanilla ViT model
-        # self.model = create_model('vit_tiny_patch16_224', pretrained=False, num_classes=self.n_cl)
-
-# Create MedVit Model   
-        # self.model = tiny()
-        # print('<<<<<<  MedVit with original head  >>>>>>>>>>>')
-        # print(self.model.proj_head[0]) # model with original head
-
-        # print('<<<<<<  MedVit with modified head  >>>>>>>>>>>')
-        # self.model.proj_head[0] = torch.nn.Linear(in_features=1024, out_features=self.n_cl, bias=True) #modifying head as  classes in dataset
-        # print(self.model.proj_head[0]) # model with original head
-        # #self.model = nn.DataParallel(self.model)
-
-# Create Non Square Model
-        # Load model
-        # self.model = create_custom_vit_tiny(patch_size=(112,2), num_classes = self.n_cl)
-
-# Create swapped dimension model
-       # self.model = create_custom_vit_with_swap(patch_size=(16,16), num_classes = self.n_cl)
-        
-# Create swapped dimension model using doubletokens.py import create_custom_vit_with_swapping
-        #self.model = create_custom_vit_with_concat(patch_size=(16,16), num_classes = self.n_cl)
-       #@# self.model = create_custom_vit(num_classes = self.n_cl)
-
-
+ ############################################## CREATE MODEL
         self.model = VisionTransformer(
         img_size=224, patch_size=16, in_chans=3, num_classes=self.n_cl,
         embed_dim=196, depth=12, num_heads=4, mlp_ratio=4., qkv_bias=True,
@@ -93,8 +53,6 @@ class Solver(object):
         # Move model to GPU if available
         if self.args.is_cuda:
 
-            #self.model = torch.nn.DataParallel(self.model, device_ids=[0, 1])
-            #self.model = self.model.cuda()
             
             # Move the model to GPU 1
             self.model = self.model.to(device)
@@ -148,9 +106,6 @@ class Solver(object):
             all_logits.append(logits.cpu())
             all_pred.append(pred.cpu())
 
-        # all_labels = torch.cat(all_labels).to('cuda')
-        # all_logits = torch.cat(all_logits).to('cuda')
-        # all_pred = torch.cat(all_pred).to('cuda')
         all_labels = torch.cat(all_labels).to(device)
         all_logits = torch.cat(all_logits).to(device)
         all_pred = torch.cat(all_pred).to(device)
@@ -193,42 +148,7 @@ class Solver(object):
     def train(self):
         iters_per_epoch = len(self.train_loader)
         optimizer = optim.SGD(self.model.parameters(), lr=0.001, momentum=0.9)
-        #optimizer = optim.AdamW(self.model.parameters(), lr=0.001, weight_decay=0.01)
-      
-        # optimizer = optim.AdamW(self.model.parameters(), lr=self.args.lr, weight_decay=1e-3)
-
-        # # Linear Warmup Scheduler
-        # linear_warmup = optim.lr_scheduler.LinearLR(
-        #     optimizer, 
-        #     start_factor=1/self.args.warmup_epochs, #Gradually increase LR
-        #     end_factor=1.0, 
-        #     total_iters=self.args.warmup_epochs-1, 
-        #     last_epoch=-1, 
-        #     verbose=True
-        # )
-        # cos_decay = optim.lr_scheduler.CosineAnnealingLR(
-        #     optimizer=optimizer, 
-        #     T_max=self.args.epochs-self.args.warmup_epochs,  # Remaining epochs
-        #     eta_min=1e-5, #minimum LR
-        #     verbose=True
-        # )
-        # ###################### print learning rate schedular for cosine annealing
-        # epochs = self.args.epochs
-        # lrs = []
-        # for epoch in range(epochs):
-        #     if epoch < self.args.warmup_epochs:
-        #         linear_warmup.step(epoch)
-        #     else:
-        #         cos_decay.step(epoch)
-        #     lrs.append(optimizer.param_groups[0]['lr'])
-
-        # plt.plot(range(epochs), lrs)
-        # plt.xlabel("Epochs")
-        # plt.ylabel("Learning Rate")
-        # plt.title("Learning Rate Schedule")
-        # plt.savefig(os.path.join(self.args.output_path, 'learning_Rate Schedular.png'), bbox_inches='tight')
-        ######################
-
+       
         best_acc = 0
 
         for epoch in range(self.args.epochs):
@@ -287,10 +207,6 @@ class Solver(object):
                 torch.save(self.model.state_dict(), os.path.join(self.args.model_path, "best_breast_attnmixer.pt"))
                 print(f"✅ Saved new best model at epoch {epoch+1} with test acc: {test_acc:.2%}")
 
-            # if epoch < self.args.warmup_epochs:
-            #     linear_warmup.step()
-            # else:
-            #     cos_decay.step()
 
             self.train_losses.append(sum(train_epoch_loss) / iters_per_epoch)
             self.test_losses.append(test_loss)
@@ -394,11 +310,6 @@ class Solver(object):
         print(cm)
         wandb.finish()
 
-
-
-
-
-    
 
     def plot_graphs(self):
         plt.plot(self.train_losses, color='b', label='Train')
