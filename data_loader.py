@@ -52,17 +52,6 @@ def log_class_distribution(loader, class_names):
     # Log table to W&B
     wandb.log({"class_distribution_table": table})
 
-    # Prepare data for W&B Chart
-    # wandb.log({
-    #     "class_distribution_chart": wandb.plot.bar(
-    #         table,
-    #         x="class",
-    #         y="count",
-    #         title="Class Distribution",
-    #         xlabel="Class",
-    #         ylabel="Count"
-    #     )
-    # })
 
 def log_sample_images(loader, n_samples=16):
     """Logs sample images from the dataset to W&B."""
