@@ -26,6 +26,16 @@ CA-ViT is a minimal yet powerful extension to standard Vision Transformers (ViTs
 - Visualization utilities for token attention maps
 - Lightweight and reproducible experiments on 5 benchmark datasets
 
+## 🧠 Citation
+- If you use this work, please cite us:
+
+@inproceedings{Aon2025cavit,
+  title     = {CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion},
+  author    = {Aon Safdar and Mohamed Saadeldin},
+  booktitle = {CVPRW: Transformers for Vision (T4V)},
+  year      = {2025}
+}
+
 ---
 
 ## 📦 Setup
@@ -45,11 +55,5 @@ python main.py --dataset pneumoniamnist \
                --image_size 224 \
                --patch_size 16
 
-If you use this work, please cite us:
 
-@inproceedings{your2025cavit,
-  title     = {CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion},
-  author    = {Your Name and Co-authors},
-  booktitle = {CVPRW: Transformers for Vision (T4V)},
-  year      = {2025}
-}
+
