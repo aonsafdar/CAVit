@@ -43,4 +43,13 @@ python main.py --dataset pneumoniamnist \
                --epochs 100 \
                --batch_size 128 \
                --image_size 224 \
-               --patch_size 16 
+               --patch_size 16
+
+If you use this work, please cite us:
+
+@inproceedings{your2025cavit,
+  title     = {CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion},
+  author    = {Your Name and Co-authors},
+  booktitle = {CVPRW: Transformers for Vision (T4V)},
+  year      = {2025}
+}
