@@ -15,7 +15,7 @@ CA-ViT is a minimal yet powerful extension to standard Vision Transformers (ViTs
 - Reduced parameter count and FLOPs, with improved accuracy  
 
 <p align="center">
-  <img src="accuracy_plots/architecture.png width="600"/>
+  <img src="accuracy_plots/architecture.png width="200"/>
 </p>
 
 ## 🚀 Features
