@@ -4,7 +4,7 @@ This repository contains the official PyTorch implementation of **CA-ViT**, a li
 
 > 📄 **Paper**: _CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion_  
 > 📍 **Venue**: Transformers for Vision (T4V) Workshop @ CVPR 2025  
-> 🔗 [Project Page / Paper Link (Coming Soon)]()
+
 
 ## 🧠 Overview
 
