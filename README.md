@@ -48,18 +48,6 @@ python main.py --dataset pneumoniamnist \
                --patch_size 16
 ```
 
-## 🧠 Citation
-- If you use this work, please cite us:
-
-@inproceedings{Aon2025cavit,
-  title     = {CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion},
-  author    = {Aon Safdar and Mohamed Saadeldin},
-  booktitle = {CVPRW: Transformers for Vision (T4V)},
-  year      = {2025}
-}
-
-## 📨 Contact
-Feel free to raise an issue or contact me at [aon.safdar@ucdconnect.ie](mailto:aon.safdar@ucdconnect.ie) for queries and discussions.
 
 
 
