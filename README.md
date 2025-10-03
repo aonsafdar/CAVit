@@ -2,7 +2,7 @@
 
 This repository contains the official PyTorch implementation of **CA-ViT**, a lightweight Vision Transformer that replaces static MLP-based channel mixing with dynamic attention across feature channels.
 
-> 📄 **Paper**: _CA-ViT: Channel-Aware Vision Transformers for Dynamic Feature Fusion_  
+> 📄 **Paper**: _CAViT - Channel-Aware Vision Transformers for Dynamic Feature Fusion_  
 > 📍 **Venue**: xxx  
 
 
