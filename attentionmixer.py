@@ -1,4 +1,4 @@
-# This is impl of CaViT Model with basic building blocks hacked together by Aon from timm's implementation
+# This is impl of CaViT Model with basic building blocks hacked together from timm's implementation
 import torch
 import torch.nn as nn
 from torch.nn.init import trunc_normal_
