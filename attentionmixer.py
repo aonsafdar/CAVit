@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 from torch.nn.init import trunc_normal_
 
-
 # Patch Embedding
 class PatchEmbed(nn.Module):
     """Image to Patch Embedding"""
