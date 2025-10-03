@@ -5,7 +5,6 @@ import datetime
 from solver import Solver
 
 
-
 def main(args):
     torch.cuda.empty_cache()
     # Create required directories if they don't exist
@@ -81,3 +80,4 @@ if __name__ == '__main__':
     duration = end_time - start_time
     print("Ended at " + str(end_time.strftime('%Y-%m-%d %H:%M:%S')))
     print("Duration: " + str(duration))
+
